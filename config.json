@@ -1,5 +1,5 @@
 {
-  "channel": "@KoyanagiRou",
+  "channel": "@AkagiWen",
   "since": "2023-01-01T00:00:00",
   "include_own_videos": false,
   "game_aliases": {
@@ -14,7 +14,7 @@
     ]
   },
   "collab_channels": [
-    "@AkagiWen",
+    "@KoyanagiRou",
     "@MurakumoKagetsu",
     "@HoshirubeSho",
     "@InamiRai",
