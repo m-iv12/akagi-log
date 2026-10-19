@@ -15644,5 +15644,19 @@
   "own": false,
   "game": "同時視聴",
   "collabs": []
+ },
+ {
+  "id": "iUVKbnxM7go",
+  "title": "【タンポポは耐える。】ハイボールも耐える。【赤城ウェン/にじさんじ】",
+  "kind": "stream",
+  "status": "live",
+  "start": "2026-10-19T12:30:11Z",
+  "end": null,
+  "url": "https://www.youtube.com/watch?v=iUVKbnxM7go",
+  "thumb": "https://i.ytimg.com/vi/iUVKbnxM7go/mqdefault_live.jpg",
+  "channel": "赤城ウェン / Akagi Wen【にじさんじ】",
+  "own": true,
+  "game": "タンポポは耐える。",
+  "collabs": []
  }
 ]
