@@ -4,10 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="koyanagi-log">
+<meta name="apple-mobile-web-app-title" content="">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="robots" content="noindex">
-<title>koyanagi-log</title>
+<title></title>
+<script>document.documentElement.classList.add("theming");setTimeout(function(){document.documentElement.classList.remove("theming")},2500)</script>
+<style>html.theming body{visibility:hidden}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
@@ -24,6 +26,11 @@
   --chat:#f8efd2; --chat-ink:#4a4636; --chat-deep:#e3d3a2;
   --other:#e7ecf5; --other-ink:#3f4d6e; --other-deep:#c3cee2;
   --empty:#eef2f8; --empty-num:#b3c0d8;
+  /* 半透明で使う色（R G B）。config.json の theme で上書きできる */
+  --ink-rgb:63 77 110; --shade-rgb:40 50 75; --blue-l-rgb:169 189 224; --blue-xl-rgb:228 235 246;
+  --empty-rgb:238 242 248; --cream-d-rgb:233 220 176; --valo-rgb:111 133 178; --valo-deep-rgb:76 95 138; --blue-d-rgb:90 111 156;
+  /* アクセント（今日・コラボ印・集計の2つ目）。未指定なら従来どおり */
+  --today:var(--blue); --today-bg-rgb:var(--blue-xl-rgb); --co:var(--cream-d); --stat2:#8fa4cc;
   --font-label:"Josefin Sans","Zen Maru Gothic",sans-serif;
   --font-body:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif;
   --hh:22px;
@@ -61,22 +68,22 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 /* ---- 集計：四角のカード ---- */
 .summary{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center}
 .stat{position:relative;width:72px;height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;color:#fff;background:var(--blue);border-radius:4px}
-.stat:nth-child(2){background:#8fa4cc} .stat:nth-child(3){background:var(--blue-l);color:var(--ink)} .stat:nth-child(4){background:var(--cream-d);color:var(--ink)}
+.stat:nth-child(2){background:var(--stat2)} .stat:nth-child(3){background:var(--blue-l);color:var(--ink)} .stat:nth-child(4){background:var(--cream-d);color:var(--ink)}
 .stat small{font-family:var(--font-label);font-size:.6rem;letter-spacing:.14em}
 .stat b{font-family:var(--font-label);font-weight:600;font-size:1.3rem;font-variant-numeric:tabular-nums;margin-top:2px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:200px}
 .chip{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;color:var(--ink);background:var(--paper);border:1px solid var(--grid-2);border-radius:99px;padding:2px 10px 2px 6px;font-variant-numeric:tabular-nums}
-.dot{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:inset 0 0 0 1px rgb(63 77 110 / .2)}
-.key-co{width:12px;height:12px;background:var(--cream-d);clip-path:polygon(0 0,100% 0,100% 100%);display:inline-block}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:inset 0 0 0 1px rgb(var(--ink-rgb) / .2)}
+.key-co{width:12px;height:12px;background:var(--co);clip-path:polygon(0 0,100% 0,100% 100%);display:inline-block}
 .key-up{width:12px;height:12px;border-radius:3px;display:inline-block;border:1.5px dashed var(--blue)}
 .sep{display:none}
 
 /* ---- 締切：マスキングテープ付きのメモ ---- */
 .dl-panel{position:relative;display:flex;flex-direction:column;gap:4px;background:var(--cream);
-  background-image:linear-gradient(rgb(233 220 176 / .45) 1px,transparent 1px),linear-gradient(90deg,rgb(233 220 176 / .45) 1px,transparent 1px);background-size:14px 14px;
-  border-radius:4px;padding:18px 14px 10px;box-shadow:0 2px 6px rgb(63 77 110 / .12);color:var(--ink);margin-top:6px}
+  background-image:linear-gradient(rgb(var(--cream-d-rgb) / .45) 1px,transparent 1px),linear-gradient(90deg,rgb(var(--cream-d-rgb) / .45) 1px,transparent 1px);background-size:14px 14px;
+  border-radius:4px;padding:18px 14px 10px;box-shadow:0 2px 6px rgb(var(--ink-rgb) / .12);color:var(--ink);margin-top:6px}
 .dl-panel::before{content:"";position:absolute;left:50%;top:-8px;width:110px;height:18px;transform:translateX(-50%) rotate(-2deg);
-  background:repeating-linear-gradient(90deg,rgb(169 189 224 / .85) 0 6px,rgb(169 189 224 / .65) 6px 12px);clip-path:polygon(3% 0,100% 0,97% 50%,100% 100%,0 100%,3% 50%,0 0)}
+  background:repeating-linear-gradient(90deg,rgb(var(--blue-l-rgb) / .85) 0 6px,rgb(var(--blue-l-rgb) / .65) 6px 12px);clip-path:polygon(3% 0,100% 0,97% 50%,100% 100%,0 100%,3% 50%,0 0)}
 .dl-h{font-family:var(--font-label);font-size:.72rem;letter-spacing:.2em;color:var(--blue-d);font-weight:600;text-align:center}
 .dl-item{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;
   border:0;border-top:1px dashed var(--cream-d);background:transparent;padding:6px 0 3px;min-width:0}
@@ -90,7 +97,7 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 /* ---- ボード（クリップボード＋方眼紙）---- */
 .card{position:relative;background:var(--board);border-radius:14px;padding:26px 8px 8px;margin-top:10px}
 .strap{position:absolute;left:50%;top:-12px;transform:translateX(-50%);width:140px;height:26px;border-radius:5px;
-  background:linear-gradient(var(--clip),var(--clip-d));box-shadow:0 2px 4px rgb(63 77 110 / .2);z-index:2}
+  background:linear-gradient(var(--clip),var(--clip-d));box-shadow:0 2px 4px rgb(var(--ink-rgb) / .2);z-index:2}
 .strap::before{content:"";position:absolute;left:50%;top:-14px;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;
   border:5px solid var(--clip-d);background:transparent;box-sizing:border-box}
 #view{background:var(--paper);background-image:var(--grid-bg);background-size:16px 16px;border-radius:8px;overflow:hidden}
@@ -103,17 +110,17 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 .dh .dw{font-size:.7rem;color:var(--muted)}
 .dh .dt{font-family:var(--font-label);font-size:.75rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;min-height:1.2em}
 .dh.sat .dw{color:var(--sat)} .dh.sun .dw{color:var(--sun)}
-.dh.today .dd{background:var(--blue);color:#fff;border-radius:99px;padding:1px 7px 0}
+.dh.today .dd{background:var(--today);color:#fff;border-radius:99px;padding:1px 7px 0}
 .gutter{position:relative;height:calc(24 * var(--hh));background:rgb(255 255 255 / .7)}
 .gutter span{position:absolute;right:5px;font-family:var(--font-label);font-size:.72rem;color:var(--muted);transform:translateY(-50%);font-variant-numeric:tabular-nums}
 .col{position:relative;height:calc(24 * var(--hh));border-left:1px dashed var(--grid-2);
   background-image:linear-gradient(to bottom,var(--grid-2) 1px,transparent 1px);background-size:100% var(--hh)}
-.col.today{background-color:rgb(228 235 246 / .6)}
+.col.today{background-color:rgb(var(--today-bg-rgb) / .6)}
 .ev{position:absolute;left:2px;right:2px;border:0;border-radius:6px;padding:4px 3px;overflow:hidden;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;gap:1px;
   font-family:var(--font-label);font-size:.74rem;font-weight:600;line-height:1.2;font-variant-numeric:tabular-nums;
-  box-shadow:0 1px 2px rgb(63 77 110 / .18);transition:transform .15s,box-shadow .15s}
-.ev:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgb(63 77 110 / .22)}
+  box-shadow:0 1px 2px rgb(var(--ink-rgb) / .18);transition:transform .15s,box-shadow .15s}
+.ev:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgb(var(--ink-rgb) / .22)}
 .ev .g{font-family:var(--font-body);font-weight:700;font-size:.78rem}
 .ev.top-cut{border-top-left-radius:0;border-top-right-radius:0}
 .ev.bot-cut{border-bottom-left-radius:0;border-bottom-right-radius:0}
@@ -122,11 +129,11 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 @media (prefers-reduced-motion:reduce){.ev{transition:none}.ev:hover{transform:none}}
 /* 予定：点線の枠 */
 .ev.up{background:rgb(255 255 255 / .9);color:var(--ink);box-shadow:inset 0 0 0 2px var(--gd,var(--blue));border:0;
-  background-image:repeating-linear-gradient(-45deg,rgb(169 189 224 / .25) 0 4px,transparent 4px 9px)}
+  background-image:repeating-linear-gradient(-45deg,rgb(var(--blue-l-rgb) / .25) 0 4px,transparent 4px 9px)}
 .ev.up{outline:2px dashed var(--gd,var(--blue));outline-offset:-2px;box-shadow:none}
-.ev.live{box-shadow:0 0 0 2px var(--blue-d),0 0 10px rgb(90 111 156 / .45)}
+.ev.live{box-shadow:0 0 0 2px var(--blue-d),0 0 10px rgb(var(--blue-d-rgb) / .45)}
 /* コラボ：右上の折り返し（生成り） */
-.ev.co::after,.th.co::after{content:"";position:absolute;right:0;top:0;width:12px;height:12px;background:var(--cream-d);
+.ev.co::after,.th.co::after{content:"";position:absolute;right:0;top:0;width:12px;height:12px;background:var(--co);
   clip-path:polygon(0 0,100% 0,100% 100%);z-index:1;box-shadow:-1px 1px 0 rgb(0 0 0 / .1)}
 .th.co::after{width:15px;height:15px}
 .ev .gl{font-family:var(--font-body);font-size:.66rem;border:1px solid currentColor;border-radius:99px;padding:0 5px;margin-top:2px;opacity:.85}
@@ -146,7 +153,7 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 .mo-head .sat{color:var(--sat)} .mo-head .sun{color:var(--sun)}
 .mo-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;padding:3px}
 .mc{position:relative;border:0;padding:0;aspect-ratio:1;max-width:100%;min-width:0;overflow:hidden;border-radius:6px;
-  background:rgb(238 242 248 / .85);display:flex;flex-direction:column;gap:2px}
+  background:rgb(var(--empty-rgb) / .85);display:flex;flex-direction:column;gap:2px}
 .mc.out{visibility:hidden}
 .mc:hover .th{filter:brightness(1.06)}
 .th{position:relative;flex:1;min-height:0;overflow:hidden;transition:filter .15s}
@@ -155,8 +162,8 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 .ph b{position:relative;font-family:var(--font-body);font-weight:700;font-size:clamp(.55rem,2.4vw,1rem);opacity:.85;color:var(--gi)}
 .mn{position:absolute;right:5px;bottom:1px;z-index:2;font-family:var(--font-label);font-weight:600;font-size:clamp(1rem,4.6vw,2rem);line-height:1.05;
   font-variant-numeric:tabular-nums;color:var(--empty-num);pointer-events:none}
-.mc.has .mn{color:#fff;text-shadow:0 0 3px rgb(40 50 75 / .7),0 1px 4px rgb(40 50 75 / .5)}
-.mc.today{outline:3px solid var(--blue);outline-offset:-3px}
+.mc.has .mn{color:#fff;text-shadow:0 0 3px rgb(var(--shade-rgb) / .7),0 1px 4px rgb(var(--shade-rgb) / .5)}
+.mc.today{outline:3px solid var(--today);outline-offset:-3px}
 .mh{position:absolute;left:4px;top:4px;z-index:2;font-family:var(--font-label);font-size:.72rem;font-weight:600;color:var(--ink);background:rgb(255 255 255 / .88);
   border-radius:99px;padding:1px 7px 0;font-variant-numeric:tabular-nums;pointer-events:none}
 @media (max-width:480px){.mh{display:none}}
@@ -170,7 +177,7 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 /* ---- ブロック内：時刻／ゲーム(時間)／タイトル ---- */
 .ev .tm{white-space:nowrap}
 .ev .g small{font-size:.86em;font-weight:600;margin-left:1px}
-.sh-thumb{display:block;margin:0 -2px;border-radius:6px;overflow:hidden;aspect-ratio:16 / 9;background:var(--blue-xl);box-shadow:0 2px 6px rgb(63 77 110 / .2)}
+.sh-thumb{display:block;margin:0 -2px;border-radius:6px;overflow:hidden;aspect-ratio:16 / 9;background:var(--blue-xl);box-shadow:0 2px 6px rgb(var(--ink-rgb) / .2)}
 .sh-thumb img{display:block;width:100%;height:100%;object-fit:cover}
 /* ---- 週表示のサムネイルとタイトル ---- */
 .evth{display:block;flex:none;width:calc(100% + 6px);margin:-4px -3px 3px;aspect-ratio:16 / 9;overflow:hidden;background:rgb(255 255 255 / .3)}
@@ -190,14 +197,14 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 .note{font-size:.8rem;color:var(--ink-soft);margin:0;max-width:65ch;line-height:1.75}
 
 /* ---- 詳細：クリップ留めのメモ ---- */
-.backdrop{position:fixed;inset:0;background:rgb(63 77 110 / .35);z-index:20}
+.backdrop{position:fixed;inset:0;background:rgb(var(--ink-rgb) / .35);z-index:20}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;display:flex;justify-content:center;
   padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
   padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
 .sheet-in{position:relative;width:100%;max-width:440px;max-height:calc(100vh - 40px);overflow-y:auto;
-  background:var(--cream);background-image:linear-gradient(rgb(233 220 176 / .5) 1px,transparent 1px),linear-gradient(90deg,rgb(233 220 176 / .5) 1px,transparent 1px);background-size:14px 14px;
+  background:var(--cream);background-image:linear-gradient(rgb(var(--cream-d-rgb) / .5) 1px,transparent 1px),linear-gradient(90deg,rgb(var(--cream-d-rgb) / .5) 1px,transparent 1px);background-size:14px 14px;
   border:6px solid var(--blue-xl);border-radius:6px;padding:20px 20px 20px;display:flex;flex-direction:column;gap:10px;
-  box-shadow:0 14px 40px rgb(40 50 75 / .3);animation:up .2s ease-out;color:var(--ink)}
+  box-shadow:0 14px 40px rgb(var(--shade-rgb) / .3);animation:up .2s ease-out;color:var(--ink)}
 @keyframes up{from{transform:translateY(16px);opacity:.6}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.sheet-in{animation:none}}
 .sheet-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -228,7 +235,7 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 .fab{position:fixed;z-index:15;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
   display:flex;align-items:center;gap:8px;border:0;background:var(--blue);color:#fff;font-weight:700;letter-spacing:.08em;
   padding:11px 20px 11px 26px;clip-path:polygon(14px 0,100% 0,100% 100%,14px 100%,0 50%);border-radius:0 8px 8px 0;
-  filter:drop-shadow(0 4px 8px rgb(40 50 75 / .3))}
+  filter:drop-shadow(0 4px 8px rgb(var(--shade-rgb) / .3))}
 .fab::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--desk);margin-left:-6px}
 .fab:hover{background:var(--blue-d)}
 .form{display:flex;flex-direction:column;gap:12px}
@@ -274,7 +281,7 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 .evin .evth{margin:-10px -3px 3px;width:calc(100% + 6px)}
 .pill{position:absolute;top:-8px;left:-5px;z-index:4;background:var(--paper);color:var(--blue-d);border:1.5px solid var(--blue);border-radius:99px;
   font-family:var(--font-label);font-weight:600;font-size:.66rem;line-height:1.35;padding:1px 6px 0;white-space:nowrap;
-  box-shadow:0 1px 3px rgb(63 77 110 / .25);pointer-events:none;font-variant-numeric:tabular-nums}
+  box-shadow:0 1px 3px rgb(var(--ink-rgb) / .25);pointer-events:none;font-variant-numeric:tabular-nums}
 .ev.up .pill{border-style:dashed}
 .ev.live .pill{background:var(--blue-d);color:#fff;border-color:var(--blue-d)}
 .ev .g{line-height:1.3}
@@ -283,8 +290,8 @@ h1{margin:0;font-family:var(--font-body);font-weight:700;font-size:clamp(1.3rem,
 @media (max-width:480px){.evin{padding:10px 1px 2px}.evin .evth{margin:-10px -1px 2px;width:calc(100% + 2px)}.pill{font-size:.56rem;padding:0 3px;left:-3px;top:-7px}}
 
 /* ---- サムネイルの背景（うっすら）---- */
-.evin.hasth{background:linear-gradient(rgb(111 133 178 / .3),rgb(76 95 138 / .6)),var(--th) center / cover no-repeat}
-.evin.hasth .g,.evin.hasth .tt{text-shadow:0 1px 2px rgb(40 50 75 / .45)}
+.evin.hasth{background:linear-gradient(rgb(var(--valo-rgb) / .3),rgb(var(--valo-deep-rgb) / .6)),var(--th) center / cover no-repeat}
+.evin.hasth .g,.evin.hasth .tt{text-shadow:0 1px 2px rgb(var(--shade-rgb) / .45)}
 
 /* ---- 週表示の罫線：1時間ごとの線＋30分ごとの薄い線（方眼紙は月表示のみ）---- */
 #view.v-week{background-image:none;background-color:var(--paper)}
@@ -306,7 +313,7 @@ body.mode-list #prev,body.mode-list #next,body.mode-list #today{display:none}
   font-family:var(--font-label);font-size:.82rem;font-weight:600;letter-spacing:.08em;color:var(--blue-d)}
 .li{display:grid;grid-template-columns:128px minmax(0,1fr);gap:12px;align-items:center;text-align:left;width:100%;
   background:var(--paper);border:1px solid var(--grid-2);border-radius:8px;padding:6px;color:var(--ink)}
-.li:hover{border-color:var(--blue);box-shadow:0 2px 8px rgb(63 77 110 / .12)}
+.li:hover{border-color:var(--blue);box-shadow:0 2px 8px rgb(var(--ink-rgb) / .12)}
 .li.up{border-style:dashed;border-color:var(--blue)}
 .li-th{display:block;aspect-ratio:16 / 9;border-radius:5px;overflow:hidden;background:var(--blue-xl)}
 .li-th img{display:block;width:100%;height:100%;object-fit:cover}
@@ -340,7 +347,7 @@ h1 .br::before{content:"　"}
 .sheet-in{box-sizing:border-box;max-height:calc(100vh - 24px - env(safe-area-inset-bottom,0px));max-height:calc(100dvh - 24px - env(safe-area-inset-bottom,0px));
   overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .sheet-top{position:sticky;top:-20px;z-index:3;margin:-20px -20px 0;padding:14px 20px 10px;background:var(--cream);
-  background-image:linear-gradient(rgb(233 220 176 / .5) 1px,transparent 1px),linear-gradient(90deg,rgb(233 220 176 / .5) 1px,transparent 1px);background-size:14px 14px}
+  background-image:linear-gradient(rgb(var(--cream-d-rgb) / .5) 1px,transparent 1px),linear-gradient(90deg,rgb(var(--cream-d-rgb) / .5) 1px,transparent 1px);background-size:14px 14px}
 .sheet-in>*{flex-shrink:0}
 
 /* ---- 年月を選ぶパネル ---- */
@@ -352,7 +359,7 @@ h1 .br::before{content:"　"}
 body.mode-list .label-btn{pointer-events:none;padding-right:6px}
 body.mode-list .label-btn::after{display:none}
 .picker{position:fixed;left:16px;top:120px;z-index:25;width:min(300px,calc(100vw - 32px));background:var(--paper);border:1px solid var(--grid-2);
-  border-radius:12px;padding:12px;box-shadow:0 10px 30px rgb(40 50 75 / .25);display:flex;flex-direction:column;gap:10px}
+  border-radius:12px;padding:12px;box-shadow:0 10px 30px rgb(var(--shade-rgb) / .25);display:flex;flex-direction:column;gap:10px}
 .pk-head{display:flex;align-items:center;justify-content:space-between}
 .pk-head b{font-family:var(--font-label);font-size:1.15rem;font-weight:600;letter-spacing:.06em;color:var(--ink)}
 .pk-head .round:disabled{opacity:.3;cursor:default}
@@ -445,7 +452,7 @@ h1{font-size:1rem;letter-spacing:.02em;white-space:nowrap}
 <div class="wrap">
   <aside class="side">
   <header class="top">
-    <div class="brand"><h1>小柳ロウ<span class="br"></span>配信スケジュール</h1><span class="badge">Sample</span></div>
+    <div class="brand"><h1><span class="own-name"></span><span class="br"></span>配信スケジュール</h1><span class="badge">Sample</span></div>
     <div class="seg" role="tablist" aria-label="表示切り替え">
       <button id="v-week" role="tab">週</button><button id="v-month" role="tab">月</button>
     </div>
@@ -502,7 +509,7 @@ h1{font-size:1rem;letter-spacing:.02em;white-space:nowrap}
       </div>
       <div class="fgroup" data-type="collab">
         <label class="fld"><span>YouTube の URL（配信・動画）</span><input type="url" id="f-yt" placeholder="https://www.youtube.com/watch?v=…" autocomplete="off"></label>
-        <p class="help">時刻・サムネイル・チャンネル名は自動で取得します。同じ時間に小柳ロウの配信があれば「コラボ相手の枠」として付き、なければ「本人の枠なし」として表示されます。</p>
+        <p class="help">時刻・サムネイル・チャンネル名は自動で取得します。同じ時間に<span class="own-name"></span>の配信があれば「コラボ相手の枠」として付き、なければ「本人の枠なし」として表示されます。</p>
       </div>
       <div class="fgroup" data-type="schedule" hidden>
         <div class="row2">
@@ -542,7 +549,8 @@ h1{font-size:1rem;letter-spacing:.02em;white-space:nowrap}
 
 <script>
 (function(){
-const H=3600e3, DAYMS=864e5, OWN="小柳ロウ";
+const H=3600e3, DAYMS=864e5;
+let OWN="", TAIL_RE=/\s*【[^】]*にじさんじ[^】]*】\s*$/i;
 const GAMES={valo:{name:"VALORANT",short:"VALO"},apex:{name:"APEX",short:"APEX"},chat:{name:"雑談",short:"雑談"},other:{name:"その他",short:"他"}};
 // ゲーム名＝タイトル先頭の【】の中身。VALORANT・APEX・雑談は衣装の配色、それ以外は名前から色を自動で決める
 const KNOWN={"VALORANT":{short:"VALO",c:"var(--valo)",i:"var(--valo-ink)",d:"var(--valo-deep)"},
@@ -560,18 +568,35 @@ const normGame=g=>{if(!g)return"その他";g=LEGACY[g]||String(g).trim();const u
   if(u.includes("VALORANT")||u==="VALO"||g.includes("ヴァロ"))return"VALORANT";if(u.includes("APEX")||g.includes("エーペックス"))return"APEX";return g};
 const gInfo=g=>({short:KNOWN[g]?KNOWN[g].short:g,c:"var(--valo)",i:"var(--valo-ink)",d:"var(--valo-deep)"});
 const gInfoColored=g=>{if(KNOWN[g])return{short:KNOWN[g].short,...KNOWN[g]};let h=0;for(const ch of g)h=(h*31+ch.codePointAt(0))>>>0;const p=PAL[h%PAL.length];return{short:g,c:p[0],i:p[1],d:p[2],p:p[3]}};
-// 表示用タイトル：先頭のゲーム名【】と、末尾の【小柳ロウ/にじさんじ】などを外す
-const cleanTitle=t=>String(t||"").replace(/^\s*【[^】]*】\s*/,"").replace(/\s*【[^】]*(小柳|にじさんじ|Koyanagi)[^】]*】\s*$/i,"").trim()||String(t||"");
+// 表示用タイトル：先頭のゲーム名【】と、末尾の【名前/にじさんじ】などを外す（名前は config.json から）
+const cleanTitle=t=>String(t||"").replace(/^\s*【[^】]*】\s*/,"").replace(TAIL_RE,"").trim()||String(t||"");
 const gStyle=g=>{const x=gInfo(g);return`--gc:${x.c};--gi:${x.i};--gd:${x.d}`+(x.p?`;--gp:${PAT[x.p]}`:"")};
 const WD=["日","月","火","水","木","金","土"];
 const sod=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
 const addDays=(t,n)=>{const d=new Date(t);d.setDate(d.getDate()+n);return d.getTime()};
 const sow=t=>{const s=sod(t);return addDays(s,-((new Date(s).getDay()+6)%7))};
 
+// ---- ライバー名・ページ名は config.json の name / name_en / site_title から ----
+function applyConfig(cfg){
+  cfg=cfg&&!Array.isArray(cfg)?cfg:{};
+  OWN=cfg.name||"";
+  const root=document.documentElement;
+  Object.entries(cfg.theme||{}).forEach(([k,v])=>root.style.setProperty(k.startsWith("--")?k:"--"+k,v));
+  root.classList.remove("theming");
+  const site=cfg.site_title||"stream-log";
+  document.title=site;
+  document.querySelector('meta[name="apple-mobile-web-app-title"]').content=site;
+  document.querySelectorAll(".own-name").forEach(el=>el.textContent=OWN);
+  const esc=x=>String(x).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  const words=[OWN,cfg.name_en,...(cfg.collab_keywords||[]),"にじさんじ"].filter(Boolean).map(esc);
+  TAIL_RE=new RegExp("\\s*【[^】]*("+words.join("|")+")[^】]*】\\s*$","i");
+}
+
 // ---- *.json を読み込む ----
 async function getData(){
   const get=async p=>{try{const r=await fetch(p,{cache:"no-cache"});return r.ok?await r.json():[]}catch(e){return[]}};
-  const [streams,posts,deadlines]=await Promise.all([get("streams.json"),get("posts.json"),get("deadlines.json")]);
+  const [streams,posts,deadlines,cfg]=await Promise.all([get("streams.json"),get("posts.json"),get("deadlines.json"),get("config.json")]);
+  applyConfig(cfg);
   return {streams,posts,deadlines};
 }
 
@@ -762,7 +787,7 @@ function openSheet(ev){
                :`<dt>時間</dt><dd>${hm(ev.start)} – ${ev.status==="live"?"配信中":endLabel(ev.start,ev.end)}</dd><dt>長さ</dt><dd>約${hrs(ev.end-ev.start)}時間</dd>`)+
       `<dt>配信元</dt><dd>${esc(ev.channel)}${ev.own?"":"<span class=\"warn\">本人の枠なし</span>"}</dd>`;
     link.href=ev.url;
-    link.textContent=ev.manual?"X で告知を開く ↗":ev.own?"小柳ロウの枠を開く ↗":`${ev.channel} の枠を開く ↗`;
+    link.textContent=ev.manual?"X で告知を開く ↗":ev.own?`${OWN}の枠を開く ↗`:`${ev.channel} の枠を開く ↗`;
     // 「除外…」は追加ボタンを表示している端末（#edit）だけに出す
     const canEdit=document.body.classList.contains("edit");
     const opt=canEdit?'<button type="button" class="ex-opt" aria-expanded="false">除外…</button>':"";
