@@ -14818,11 +14818,11 @@
   "channel": "赤城ウェン / Akagi Wen【にじさんじ】",
   "channel_id": "UC1vawzfbCnRpHT9SJ5pHlHw",
   "url": "https://www.youtube.com/watch?v=iUVKbnxM7go",
-  "thumb": "https://i.ytimg.com/vi/iUVKbnxM7go/mqdefault_live.jpg",
+  "thumb": "https://i.ytimg.com/vi/iUVKbnxM7go/mqdefault.jpg",
   "kind": "stream",
-  "status": "live",
+  "status": "done",
   "start": "2026-10-19T12:30:11Z",
-  "end": null,
+  "end": "2026-10-19T14:28:36Z",
   "own": true
  }
 }
