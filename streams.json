@@ -16799,5 +16799,19 @@
   "own": true,
   "game": "スプラ3",
   "collabs": []
+ },
+ {
+  "id": "lJQCPnspi6E",
+  "title": "【PowerWash Simulator 2】久々寝るか！「赤城ウェンの寝る時間ですよ！」【赤城ウェン/にじさんじ】",
+  "kind": "stream",
+  "status": "live",
+  "start": "2026-10-23T13:59:21Z",
+  "end": null,
+  "url": "https://www.youtube.com/watch?v=lJQCPnspi6E",
+  "thumb": "https://i.ytimg.com/vi/lJQCPnspi6E/mqdefault.jpg?v=6adb645b",
+  "channel": "赤城ウェン / Akagi Wen【にじさんじ】",
+  "own": true,
+  "game": "PowerWash Simulator 2",
+  "collabs": []
  }
 ]
