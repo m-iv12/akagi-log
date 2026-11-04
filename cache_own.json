@@ -15002,9 +15002,9 @@
   "url": "https://www.youtube.com/watch?v=A-9x0jbDjpM",
   "thumb": "https://i.ytimg.com/vi/A-9x0jbDjpM/mqdefault.jpg?v=6aeb22d1",
   "kind": "stream",
-  "status": "live",
+  "status": "done",
   "start": "2026-11-04T12:44:05Z",
-  "end": null,
+  "end": "2026-11-04T16:27:42Z",
   "own": true
  }
 }
