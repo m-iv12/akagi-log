@@ -17177,5 +17177,19 @@
   "own": true,
   "game": "雀魂",
   "collabs": []
+ },
+ {
+  "id": "NE_AHMyV-DE",
+  "title": "【雀魂】大会前日！ #にじさんじLリーグ レッドガーネット！【赤城ウェン/にじさんじ】",
+  "kind": "stream",
+  "status": "upcoming",
+  "start": "2026-11-20T13:10:00Z",
+  "end": null,
+  "url": "https://www.youtube.com/watch?v=NE_AHMyV-DE",
+  "thumb": "https://i.ytimg.com/vi/NE_AHMyV-DE/mqdefault.jpg?v=6b0035bc",
+  "channel": "赤城ウェン / Akagi Wen【にじさんじ】",
+  "own": true,
+  "game": "雀魂",
+  "collabs": []
  }
 ]
